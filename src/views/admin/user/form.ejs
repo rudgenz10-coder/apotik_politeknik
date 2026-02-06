@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="card shadow-sm">
+                <div class="card-head">
+                    <h1><%= title %></h1>
+                </div>
+                <div class="card-body">
+                    <form action="<%= action %>" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input 
+                            type="text"
+                            name="username"
+                            placeholder="masukan nama"
+                            value="<%= user.username || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">password</label>
+                            <input
+                            type="password"
+                            name="password"
+                            placeholder="masukan password"
+                            value=""
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">nama lengkap</label>
+                            <input
+                            type="text"
+                            name="nama_lengkap"
+                            placeholder="masukan nama lengkap"
+                            value="<%= user.nama_lengkap || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">role</label>
+                            <select name="role" id="" class="form-control">
+                                <option value="admin">Admin</option>
+                                <option value="kasir">Kasir</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bootsrap.bundle.min.js"></script>
+</body>
+</html>
