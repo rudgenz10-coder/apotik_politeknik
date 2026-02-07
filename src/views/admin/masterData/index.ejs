@@ -10,7 +10,7 @@
   </li>
   <li class="nav-item">
     <a class="nav-link" data-bs-toggle="tab" href="#supplier">
-      Produk
+      Supplier
     </a>
   </li>
 </ul>
@@ -41,7 +41,7 @@
                     <td class="text-center"><%= k.nama_kategori %></td>
                     <td class="text-center">
                         <a href="/masterData/kategori/edit/<%= k.id %>" class="btn btn-primary">Edit</a>
-                        <a href="/masterData/kategori/delete/<%= k.id %>" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#alertModal">Delete</a>
+                        <a href="/masterData/kategori/delete/<%= k.id %>" class="btn btn-danger my-2">Delete</a>
                     </td>
                  </tr>
                 <% }) %>
@@ -66,19 +66,21 @@
                 <tr>
                     <th>No</th>
                     <th>Supplier</th>
-                    <th>Aksi</th>
+                    <th>nomer telepon</th>
+                    <th>alamat</th>
+                    <th>aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <% supplier.forEach(k => { %>
+                <% supplier.forEach(s => { %>
                  <tr>
-                    <td class="text-center"><%= k.id %></td>
-                    <td class="text-center"><%= k.nama_supplier %></td>
-                    <td class="text-center"><%= k.no_telp %></td>
-                    <td class="text-center"><%= k.alamat %></td>
+                    <td class="text-center"><%= s.id %></td>
+                    <td class="text-center"><%= s.nama_supplier %></td>
+                    <td class="text-center"><%= s.no_telp %></td>
+                    <td class="text-center"><%= s.alamat %></td>
                     <td class="text-center">
-                        <a href="/masterData/supplier/edit/<%= k.id %>" class="btn btn-primary">Edit</a>
-                        <a href="/masterData/supplier/delete/<%= k.id %>" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#alertModal">Delete</a>
+                        <a href="/masterData/supplier/edit/<%= s.id %>" class="btn btn-primary">Edit</a>
+                        <a href="/masterData/supplier/delete/<%= s.id %>" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#alertModal">Delete</a>
                     </td>
                  </tr>
                 <% }) %>

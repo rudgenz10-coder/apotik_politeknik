@@ -21,6 +21,7 @@
     "express": "^5.2.1",
     "express-ejs-layouts": "^2.5.1",
     "express-layout": "^0.1.0",
+    "express-session": "^1.19.0",
     "mysql2": "^3.16.3",
     "nodemon": "^3.1.11",
     "sequelize": "^6.37.7",

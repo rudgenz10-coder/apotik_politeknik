@@ -13,7 +13,11 @@ const Obat = db.define('obat', {
     harga_beli: DataTypes.INTEGER,
     harga_jual: DataTypes.INTEGER,
     stok: DataTypes.INTEGER,
-    tanggal_kadaluarsa: DataTypes.DATEONLY
+    tanggal_kadaluarsa: DataTypes.DATEONLY,
+    is_active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
+    }
 }, {
     freezeTableName: true
 });

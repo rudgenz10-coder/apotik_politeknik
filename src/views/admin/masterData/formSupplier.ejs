@@ -1,0 +1,41 @@
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="card shadow-sm">
+                <div class="card-head">
+                    <h1><%= title %></h1>
+                </div>
+                <div class="card-body">
+                    <form action="<%= action %>" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Nama supplier</label>
+                            <input 
+                            type="text"
+                            name="nama_supplier"
+                            placeholder="masukan supplier"
+                            value="<%= supplier.nama_supplier || '' %>"
+                            class="form-control"
+                            required
+                            >
+                            <input 
+                            type="text"
+                            name="no_telp"
+                            placeholder="masukan nomer telepon"
+                            value="<%= supplier.no_telp || '' %>"
+                            class="form-control"
+                            required
+                            >
+                            <input 
+                            type="text"
+                            name="alamat"
+                            placeholder="masukan alamat"
+                            value="<%= supplier.alamat || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

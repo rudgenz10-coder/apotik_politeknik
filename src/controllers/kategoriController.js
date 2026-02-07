@@ -12,7 +12,7 @@ export default {
 
     async store(req, res) {
         const {nama_kategori} = req.body
-        const kategori = await Kategori.findOne({where: nama_kategori});
+        const kategori = await Kategori.findOne({where: {nama_kategori}});
 
         if(kategori) {
             res.render('admin/masterData/formKategori', {
@@ -33,7 +33,7 @@ export default {
         res.render('admin/masterData/formKategori', {
             kategori,
             title: 'Edit Kategori',
-            action: `/kategori/update/${req.params.id}`
+            action: `/masterData/kategori/update/${req.params.id}`
         });
     },
 

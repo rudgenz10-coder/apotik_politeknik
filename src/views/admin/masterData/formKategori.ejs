@@ -1,0 +1,25 @@
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="card shadow-sm">
+                <div class="card-head">
+                    <h1><%= title %></h1>
+                </div>
+                <div class="card-body">
+                    <form action="<%= action %>" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Nama Kategori</label>
+                            <input 
+                            type="text"
+                            name="nama_kategori"
+                            placeholder="masukan kategori"
+                            value="<%= kategori.nama_kategori || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

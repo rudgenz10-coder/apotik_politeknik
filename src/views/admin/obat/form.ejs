@@ -1,0 +1,87 @@
+<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="card shadow-sm">
+                <div class="card-head">
+                    <h1><%= title %></h1>
+                </div>
+                <div class="card-body">
+                    <form action="<%= action %>" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">nama Obat</label>
+                            <input 
+                            type="text"
+                            name="nama_obat"
+                            placeholder="masukan Obat"
+                            value="<%= obat.nama_obat || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">kategori</label>
+                            <select name="id_kategori" id="" class="form-control">
+                                <option value="">pilih kategori</option>
+                                <% kategori.forEach(k => { %>
+                                 <option value="<%= k.id || ''%>"><%= k.nama_kategori %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">supplier</label>
+                            <select name="id_supplier" id="" class="form-control">
+                                <option value="">pilih supplier</option>
+                                <% supplier.forEach(s => { %>
+                                 <option value="<%= s.id || ''%>"><%= s.nama_supplier %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">harga beli</label>
+                            <input
+                            type="text"
+                            name="harga_beli"
+                            placeholder="masukan harga beli"
+                            value="<%= obat.harga_beli || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">harga jual</label>
+                            <input
+                            type="text"
+                            name="harga_jual"
+                            placeholder="masukan harga jual"
+                            value="<%= obat.harga_jual || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">stok</label>
+                            <input
+                            type="text"
+                            name="stok"
+                            placeholder="masukan harga beli"
+                            value="<%= obat.stok || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">tanggal kadaluarsa</label>
+                            <input
+                            type="date"
+                            name="tanggal_kadaluarsa"
+                            placeholder="masukan harga beli"
+                            value="<%= obat.tanggal_kadaluarsa || '' %>"
+                            class="form-control"
+                            required
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

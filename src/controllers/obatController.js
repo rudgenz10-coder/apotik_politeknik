@@ -4,7 +4,11 @@ import Supplier from "../models/Supplier.js";
 
 export default {
     async index(req, res) {
+        const today = new Date();
+        const warningDate = new Date();
+        warningDate.setDate(today.getDate() + 30);
         const obat = await Obat.findAll({
+            where: {is_active : true},
             include: [
                 {
                     model: Kategori,
@@ -18,7 +22,9 @@ export default {
 
         res.render('admin/obat/index', {
             title: 'Data Obat',
-            obat
+            obat,
+            today,
+            warningDate
         });
     }, 
 
@@ -36,15 +42,19 @@ export default {
     },
 
     async store(req, res) {
-        await Obat.create(req.body);
+        const data = req.body;
+        if(new Date(data.tanggal_kadaluarsa) <= new Date()) {
+            res.redirect('/admin/obat/form');
+        }
+        await Obat.create({...data, is_active: true});
 
-        res.redirect('/admin/obat')
+        res.redirect('/obat')
     },
 
     async edit(req, res) {
         const supplier = await Supplier.findAll();
         const kategori = await Kategori.findAll();
-        const obat = await Obat.findByPk({where: {id : req.params.id}});
+        const obat = await Obat.findByPk(req.params.id);
 
         res.render('admin/obat/form', {
             kategori,
@@ -56,6 +66,14 @@ export default {
     },
 
     async update(req, res) {
-        
+        await Obat.update(req.body, {where: {id: req.params.id}});
+
+        res.redirect('/obat');
+    },
+
+    async delete(req, res) {
+        await Obat.findByPk(req.params.id)
+
+        await Obat.update({is_active : false});
     }
 }

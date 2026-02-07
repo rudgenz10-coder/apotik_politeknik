@@ -12,7 +12,7 @@ export default {
 
     async store(req, res) {
         const {nama_supplier} = req.body
-        const supplier = await Supplier.findOne({where: nama_supplier});
+        const supplier = await Supplier.findOne({where: {nama_supplier}});
 
         if(supplier) {
             res.render('admin/masterData/formSupplier', {
@@ -33,12 +33,12 @@ export default {
         res.render('admin/masterData/formSupplier', {
             supplier,
             title: 'Edit Supplier',
-            action: `/supplier/update/${req.params.id}`
+            action: `/masterData/supplier/update/${req.params.id}`
         });
     },
 
     async update(req, res) {
-        await Supplier.update(req.body, {where: {id: req.params.id}})
+        await Supplier.update(req.body, {where: {id: req.params.id}});
 
         res.redirect('/masterData');
     },
