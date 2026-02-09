@@ -10,7 +10,7 @@ export default {
         const isMatch = await bcrypt.compare(password, user.password);
 
         if(!user || !isMatch) {
-            res.redirect('/auth?err=username atau password salah');
+            return res.redirect('/');
         }
 
         req.session.user = {
@@ -19,6 +19,8 @@ export default {
             role: user.role
         }
 
-        res.redirect('/dashboard');
+        console.log(req.session.user)
+
+        return res.redirect('/dashboard');
     }
 }

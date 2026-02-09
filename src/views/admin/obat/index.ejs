@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <% obat.forEach(o => { %>
-                 <tr>
+                 <tr class="">
                     <td class="text-center"><%= o.id %></td>
                     <td class="text-center"><%= o.nama_obat %></td>
                     <td class="text-center"><%= o.kategori.nama_kategori || '' %></td>
@@ -31,7 +31,14 @@
                     <td class="text-center"><%= o.stok %></td>
                     <td class="text-center"><%= o.harga_beli %></td>
                     <td class="text-center"><%= o.harga_jual %></td>
-                    <td class="text-center"><%= o.tanggal_kadaluarsa %></td>
+                    <td class="text-center text-success<% 
+                        const exp = new Date(o.tanggal_kadaluarsa);
+                        if(exp < today) { %>
+                            text-danger
+                        <% } else if(exp <= warningDate) {
+                            %> text-warning <%
+                        }
+                    %>"><%= o.tanggal_kadaluarsa %></td>
                     <td class="text-center">
                         <a href="/obat/edit/<%= o.id %>" class="btn btn-primary">Edit</a>
                         <a href="/obat/delete/<%= o.id %>" class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#alertModal">Delete</a>

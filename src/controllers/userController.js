@@ -61,12 +61,13 @@ export default {
             })
         }
 
-        res.redirect('/user');
+        return res.redirect('/user');
     },
 
     async delete(req, res) {
-        await User.destroy({where: {id: req.params.id}})
+        await User.destroy({where: {id: req.params.id}});
+        console.log('berhasil di hapus')
 
-        res.redirect('/user')
+        return res.redirect('/user')
     }
 }

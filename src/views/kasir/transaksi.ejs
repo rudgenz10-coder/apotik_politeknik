@@ -1,0 +1,168 @@
+<h4>Transaksi Penjualan</h4>
+<p class="text-muted">Layani penjualan obat kepada pelanggan</p>
+
+<!-- INFO TRANSAKSI -->
+<div class="row mb-3">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <small>No. Transaksi</small>
+        <h6>TRX-<%= Date.now() %></h6>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <small>Kasir</small>
+        <h6><%= session.user?.username || "-" %></h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+  <!-- KIRI -->
+  <div class="col-md-8">
+
+    <!-- TAMBAH ITEM -->
+    <div class="card shadow-sm mb-3">
+      <div class="card-body">
+        <h6>➕ Tambah Item</h6>
+        <div class="row g-2">
+          <div class="col-md-7">
+            <select id="obatSelect" class="form-select">
+              <option value="">Pilih obat...</option>
+              <% obat.forEach(o => { %>
+                <option
+                  value="<%= o.id %>"
+                  data-harga="<%= o.harga_jual %>"
+                  data-nama="<%= o.nama_obat %>">
+                  <%= o.nama_obat %> (Rp <%= o.harga_jual.toLocaleString() %>)
+                </option>
+              <% }) %>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <input type="number" id="qty" class="form-control" value="1" min="1">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-success w-100" onclick="tambahItem()">Tambah</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KERANJANG -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6>🛒 Keranjang</h6>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th>Nama Obat</th>
+              <th>Harga</th>
+              <th>Qty</th>
+              <th>Subtotal</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="keranjang"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- KANAN -->
+  <div class="col-md-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h6>Pembayaran</h6>
+
+        <div class="mb-2">
+          <small>Total Bayar</small>
+          <h4 class="text-success">Rp <span id="total">0</span></h4>
+        </div>
+
+        <div class="mb-2">
+          <small>Nominal Uang</small>
+          <input type="number" id="bayar" class="form-control" oninput="hitungKembalian()">
+        </div>
+
+        <div class="mb-3">
+          <small>Kembalian</small>
+          <h5>Rp <span id="kembalian">0</span></h5>
+        </div>
+
+        <form action="/transaksi" method="POST">
+          <input type="hidden" name="items" id="itemsInput">
+          <input type="hidden" name="bayar" id="bayarInput">
+          <button class="btn btn-success w-100">💾 Simpan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let keranjang = [];
+
+  function tambahItem() {
+    const select = document.getElementById("obatSelect");
+    const qty = parseInt(document.getElementById("qty").value);
+    const option = select.options[select.selectedIndex];
+    if (!option.value) return;
+
+    keranjang.push({
+      id: option.value,
+      nama: option.dataset.nama,
+      harga: parseInt(option.dataset.harga),
+      qty
+    });
+
+    renderKeranjang();
+  }
+
+  function renderKeranjang() {
+    const tbody = document.getElementById("keranjang");
+    tbody.innerHTML = "";
+    let total = 0;
+
+    keranjang.forEach((item, i) => {
+      const subtotal = item.harga * item.qty;
+      total += subtotal;
+
+      tbody.innerHTML += `
+        <tr>
+          <td>${item.nama}</td>
+          <td>Rp ${item.harga.toLocaleString()}</td>
+          <td>${item.qty}</td>
+          <td>Rp ${subtotal.toLocaleString()}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" onclick="hapus(${i})">x</button>
+          </td>
+        </tr>
+      `;
+    });
+
+    document.getElementById("total").innerText = total.toLocaleString();
+    document.getElementById("itemsInput").value = JSON.stringify(keranjang);
+    hitungKembalian();
+  }
+
+  function hitungKembalian() {
+    const bayar = parseInt(document.getElementById("bayar").value || 0);
+    const total = keranjang.reduce((a, b) => a + b.harga * b.qty, 0);
+    document.getElementById("kembalian").innerText =
+      Math.max(bayar - total, 0).toLocaleString();
+    document.getElementById("bayarInput").value = bayar;
+  }
+
+  function hapus(i) {
+    keranjang.splice(i, 1);
+    renderKeranjang();
+  }
+</script>

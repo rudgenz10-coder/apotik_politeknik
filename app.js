@@ -5,6 +5,7 @@ import userRoute from './src/routes/userRoute.js'
 import masterDataRoute from './src/routes/masterDataRoute.js'
 import obatRoute from './src/routes/obatRoute.js';
 import authRoute from './src/routes/authRoute.js';
+import transaksiRoute from './src/routes/transaksiRoute.js'
 
 const app = express();
 
@@ -23,10 +24,16 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialize: false
-}))
+}));
+
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next()
+})
 app.use('/', authRoute)
 app.use('/user', userRoute);
 app.use('/masterData', masterDataRoute);
-app.use('/obat', obatRoute)
+app.use('/obat', obatRoute);
+app.use('/transaksi', transaksiRoute);
 
 export default app;
